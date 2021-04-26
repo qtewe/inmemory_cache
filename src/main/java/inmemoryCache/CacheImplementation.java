@@ -91,7 +91,7 @@ public class CacheImplementation<K, V> implements Cache<K, V> {
 
     /**
      * Implementation of {@link Cache#free()}
-     * Deleting all cached values and clearing all eviction strategy mappings {@link EvictionStrategy#free()}
+     * Deletes all cached values and clearing all eviction strategy mappings {@link EvictionStrategy#free()}
      */
     @Override
     public void free() {

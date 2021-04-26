@@ -16,7 +16,7 @@ public interface Cache<K,V> {
     V get(K key);
 
     /**
-     * Adding pair of {@code key} and {@code value} to the cache
+     * Adds pair of {@code key} and {@code value} to the cache
      *
      * @param key key with which the value should be associated
      * @param value value with which key is should be associated
@@ -38,7 +38,7 @@ public interface Cache<K,V> {
     int getSize();
 
     /**
-     * Deleting all cached values from cache
+     * Deletes all cached values from cache
      */
     void free();
 }

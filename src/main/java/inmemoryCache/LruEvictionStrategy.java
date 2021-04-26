@@ -55,7 +55,7 @@ public class LruEvictionStrategy<K> implements EvictionStrategy<K> {
     /**
      * Implementation of {@link EvictionStrategy#update(Object key)}
      *
-     * @param key adding strategy association with key if mapping not exist or updating condition of mapping
+     * @param key adds strategy association with key if mapping not exist or updating condition of mapping
      */
     @Override
     public void update(K key) {
@@ -94,7 +94,7 @@ public class LruEvictionStrategy<K> implements EvictionStrategy<K> {
     /**
      * Implementation of {@link EvictionStrategy#free()}
      *
-     * Deleting all mappings
+     * Deletes all mappings
      */
     @Override
     public void free() {
