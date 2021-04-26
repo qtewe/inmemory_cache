@@ -3,9 +3,9 @@ package inmemoryCache;
 import java.util.HashMap;
 
 /**
- * Implementation of Least Recently Used eviction strategy
+ * Implementation of Least Recently Used eviction strategy with O(1) update and evict actions
  *
- * @param <K> key value
+ * @param <K> the type of keys maintained by this strategy
  */
 public class LruEvictionStrategy<K> implements EvictionStrategy<K> {
     private static class Node<K> {
@@ -20,10 +20,25 @@ public class LruEvictionStrategy<K> implements EvictionStrategy<K> {
         }
     }
 
+    /**
+     * Map used to fast access to the {@code node} associated with {@code key}
+     */
     private HashMap<K, Node<K>> map = new HashMap<>();
+
+    /**
+     * Object that hold lest recently used {@code key}
+     */
     private Node<K> leastRecentlyUsed = null;
+    /**
+     * Object that hold most recently used {@code key}
+     */
     private Node<K> mostRecentlyUsed = null;
 
+    /**
+     * Implementation of {@link EvictionStrategy#evict()}
+     *
+     * @return key {@code k} for pair that strategy decided to evict or {@code null} if strategy mappings is empty
+     */
     @Override
     public K evict() {
         if (leastRecentlyUsed == null) return null;
@@ -37,6 +52,11 @@ public class LruEvictionStrategy<K> implements EvictionStrategy<K> {
         return temp.key;
     }
 
+    /**
+     * Implementation of {@link EvictionStrategy#update(Object key)}
+     *
+     * @param key adding strategy association with key if mapping not exist or updating condition of mapping
+     */
     @Override
     public void update(K key) {
         final Node<K> node;
@@ -71,6 +91,11 @@ public class LruEvictionStrategy<K> implements EvictionStrategy<K> {
         }
     }
 
+    /**
+     * Implementation of {@link EvictionStrategy#free()}
+     *
+     * Deleting all mappings
+     */
     @Override
     public void free() {
         map.clear();

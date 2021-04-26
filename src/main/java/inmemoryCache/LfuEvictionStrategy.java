@@ -4,15 +4,29 @@ import java.util.HashMap;
 import java.util.LinkedHashSet;
 
 /**
- * Implementation of Least Frequently Used eviction strategy
+ * Implementation of Least Frequently Used eviction strategy with O(1) update and evict actions
  *
- * @param <K>
+ * @param <K> the type of keys maintained by this strategy
  */
 public class LfuEvictionStrategy<K> implements EvictionStrategy<K> {
+    /**
+     * Map used to keep number of attempts to key
+     */
     private HashMap<K, Integer> usages = new HashMap<>();
+    /**
+     * Map used to keep number of attempts to key by number of attempts
+     */
     private HashMap<Integer, LinkedHashSet<K>> list = new HashMap<>();
+    /**
+     * Value that hold number of attempts for least frequently used key
+     */
     private int leastNumberOfUses = -1;
 
+    /**
+     * Implementation of {@link EvictionStrategy#evict()}
+     *
+     * @return key {@code k} for pair that strategy decided to evict or {@code null} if strategy mappings is empty
+     */
     @Override
     public K evict() {
         LinkedHashSet<K> keys = list.get(leastNumberOfUses);
@@ -26,6 +40,11 @@ public class LfuEvictionStrategy<K> implements EvictionStrategy<K> {
         return key;
     }
 
+    /**
+     * Implementation of {@link EvictionStrategy#update(Object key)}
+     *
+     * @param key adding strategy association with key if mapping not exist or updating condition of mapping
+     */
     @Override
     public void update(K key) {
         if (usages.containsKey(key)) {
@@ -51,6 +70,11 @@ public class LfuEvictionStrategy<K> implements EvictionStrategy<K> {
         }
     }
 
+    /**
+     * Implementation of {@link EvictionStrategy#free()}
+     *
+     * Deleting all mappings
+     */
     @Override
     public void free() {
         usages.clear();
