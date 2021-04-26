@@ -1,6 +1,8 @@
 package inmemoryCache;
 
 /**
+ * An object that produce interface for caching objects
+ *
  * @param <K> the type of keys maintained by this cache
  * @param <V> the type of values maintained by this cache
  */
