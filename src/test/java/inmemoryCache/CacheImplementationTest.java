@@ -6,6 +6,20 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CacheImplementationTest {
     @Test
+    public void cacheWithInvalidCapacity(){
+        assertThrows(IllegalArgumentException.class, () -> {
+            new CacheImplementation<>(0,null);
+        });
+    }
+
+    @Test
+    public void cacheWithNullEvictionStrategy(){
+        assertThrows(NullPointerException.class, () -> {
+            new CacheImplementation<>(1,null);
+        });
+    }
+
+    @Test
     public void cacheWithLruEvictionStrategy() {
         Cache<String, Long> cache = new CacheImplementation<>(3, new LruEvictionStrategy<>());
 
